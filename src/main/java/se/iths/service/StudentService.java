@@ -4,7 +4,9 @@ import se.iths.entity.Student;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.swing.text.Style;
 import javax.transaction.Transactional;
+import javax.ws.rs.QueryParam;
 import java.util.List;
 
 @Transactional
@@ -32,8 +34,9 @@ public class StudentService {
     }
 
     public List <Student> getStudentsByLastname (String lastName){
-        return entityManager.createQuery("SELECT s FROM Student s where s.lastName = :lastName", Student.class)
-                .setParameter("lastName", lastName).getResultList();
+
+        return entityManager.createQuery("SELECT s from Student s where s.lastName LIKE :lastName ", Student.class).setParameter("lastName", lastName).
+                getResultList();
     }
 
     public void deleteStudent (Long id){
