@@ -2,14 +2,12 @@ package se.iths.rest;
 
 
 import se.iths.entity.Student;
-import se.iths.exceptions.InvalidIdInputException;
 import se.iths.service.StudentService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.lang.annotation.Repeatable;
 import java.util.List;
 
 @Path("students")
@@ -31,7 +29,6 @@ public class StudentRest {
         else {
             Student studentResult = studentService.createStudent(student);
             return Response.status(201).entity(studentResult).build();
-           // return Response.status(Response.Status.CREATED).entity(studentResult).build();
         }
     }
 
