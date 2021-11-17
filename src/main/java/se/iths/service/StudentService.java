@@ -31,8 +31,9 @@ public class StudentService {
         return entityManager.createQuery("SELECT s from Student s", Student.class).getResultList();
     }
 
-    public List <Student> getStudentsByLastname (String lastname){
-        return null;
+    public List <Student> getStudentsByLastname (String lastName){
+        return entityManager.createQuery("SELECT s FROM Student s where s.lastName = :lastName", Student.class)
+                .setParameter("lastName", lastName).getResultList();
     }
 
     public void deleteStudent (Long id){
@@ -40,8 +41,9 @@ public class StudentService {
         entityManager.remove(foundStudent);
     }
 
-    public Student updateName (Long id, String name){
+    public Student updateLastName (Long id, String lastName){
         Student foundStudent = entityManager.find(Student.class, id);
+        foundStudent.setLastName(lastName);
         return entityManager.merge(foundStudent);
     }
 
