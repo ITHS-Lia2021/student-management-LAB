@@ -26,26 +26,26 @@ public class StudentRest {
         return Response.ok(studentResult).build();
     }
 
-    @Path("{lastName}")
+    @Path("")
     @GET
-    public Response getStudentByLastName(@PathParam("lastName") String lastName) {
+    public Response getStudentByLastName(@QueryParam("lastName") String lastName) {
         List<Student> foundStudent = studentService.getStudentsByLastname(lastName);
         return Response.ok(foundStudent).build();
     }
 
-    @Path("{id}")
+    /*@Path("{id}")
     @GET
     public Response getStudent(@PathParam("id") Long id) {
         Student foundStudent = studentService.findStudentById(id);
         return Response.ok(foundStudent).build();
     }
 
-    @Path("")
+    @Path("getall")
     @GET
     public Response getAllStudents() {
         List<Student> foundStudents = studentService.getAllStudents();
         return Response.ok(foundStudents).build();
-    }
+    }*/
 
     @Path("{id}")
     @DELETE
