@@ -2,6 +2,7 @@ package se.iths.rest;
 
 
 import se.iths.entity.Student;
+import se.iths.exceptions.InvalidIdInputException;
 import se.iths.service.StudentService;
 
 import javax.inject.Inject;
@@ -22,36 +23,55 @@ public class StudentRest {
     @Path("")
     @POST
     public Response createStudent(Student student) {
-        Student studentResult = studentService.createStudent(student);
-        return Response.ok(studentResult).build();
+        //201
+        if (student.getFirstName().isEmpty() || (student.getLastName().isEmpty()) || (student.getEmail().isEmpty())) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity("message: No name/email Given").type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
+        else {
+            Student studentResult = studentService.createStudent(student);
+            return Response.status(201).entity(studentResult).build();
+           // return Response.status(Response.Status.CREATED).entity(studentResult).build();
+        }
     }
 
     @Path("")
     @GET
     public Response getStudentByLastName(@QueryParam("lastName") String lastName) {
+        //302
         List<Student> foundStudent = studentService.getStudentsByLastname(lastName);
-        return Response.ok(foundStudent).build();
+        if (foundStudent == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }else {
+            return Response.status(Response.Status.FOUND).entity(foundStudent).build();
+        }
+
     }
 
-    /*@Path("{id}")
+    @Path("{id}")
     @GET
     public Response getStudent(@PathParam("id") Long id) {
+
         Student foundStudent = studentService.findStudentById(id);
         return Response.ok(foundStudent).build();
     }
 
+
+
     @Path("getall")
     @GET
     public Response getAllStudents() {
+        //302
         List<Student> foundStudents = studentService.getAllStudents();
         return Response.ok(foundStudents).build();
-    }*/
+    }
 
     @Path("{id}")
     @DELETE
     public Response deleteStudent(@PathParam("id") Long id) {
+        //200
         studentService.deleteStudent(id);
-        return Response.ok().build();
+        return Response.status(Response.Status.FOUND).entity(id).build();
     }
 
     @Path("update")
