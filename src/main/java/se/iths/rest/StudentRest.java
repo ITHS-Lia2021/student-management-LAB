@@ -21,7 +21,6 @@ public class StudentRest {
     @Path("")
     @POST
     public Response createStudent(Student student) {
-        //201
         if (student.getFirstName().isEmpty() || (student.getLastName().isEmpty()) || (student.getEmail().isEmpty())) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
                     .entity("message: No name/email Given").type(MediaType.APPLICATION_JSON_TYPE).build());
@@ -35,8 +34,8 @@ public class StudentRest {
     @Path("lastname")
     @GET
     public Response getStudentByLastName(@QueryParam("lastName") String lastName) {
-        Student testStudent = new Student();
-        if(true) {
+        List <Student> allStudents = studentService.getStudentsByLastname(lastName);
+        if(allStudents.isEmpty()) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
                     .entity("Students not found!").type(MediaType.APPLICATION_JSON_TYPE).build());
         } else {
