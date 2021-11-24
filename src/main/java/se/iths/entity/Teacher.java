@@ -1,3 +1,4 @@
+
 package se.iths.entity;
 
 import javax.persistence.*;
@@ -26,6 +27,11 @@ public class Teacher {
 
     public Teacher() {
 
+    }
+
+    public void addSubject (Subject subject){
+        subjects.add(subject);
+        subject.setTeacher(this);
     }
 
     public Long getId() {
@@ -60,3 +66,4 @@ public class Teacher {
         this.subjects = subjects;
     }
 }
+

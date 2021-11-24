@@ -23,7 +23,21 @@ public class Student {
     @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
     private List<Subject> subjects = new ArrayList<>();
 
+    public void addSubject (Subject subject){
+        subjects.add(subject);
+        subject.addStudent(this);
+    }
+
+
     public Student() {}
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
 
     public Long getId() {
         return id;
