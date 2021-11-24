@@ -28,6 +28,13 @@ public class Student {
         subject.addStudent(this);
     }
 
+    public Student(String firstName, String lastName, String email, String phoneNumber, List<Subject> subjects) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.subjects = subjects;
+    }
 
     public Student() {}
 

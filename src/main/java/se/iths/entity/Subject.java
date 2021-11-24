@@ -16,8 +16,8 @@ public class Subject {
     @NotEmpty
     private String name;
 
-    //@ManyToOne
-   // private Teacher teacher;
+    @ManyToOne
+    private Teacher teacher;
 
     @ManyToMany
     private List<Student> students = new ArrayList<>();
@@ -30,8 +30,10 @@ public class Subject {
         students.add(student);
     }
 
-    public Subject(String name) {
+    public Subject(String name, Teacher teacher, List<Student> students) {
         this.name = name;
+        this.teacher = teacher;
+        this.students = students;
     }
 
     public Long getId() {
@@ -58,7 +60,7 @@ public class Subject {
     public void setStudents(List<Student> students) {
         this.students = students;
     }
-/*
+
     public Teacher getTeacher() {
         return teacher;
     }
@@ -66,6 +68,4 @@ public class Subject {
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
     }
-
- */
 }

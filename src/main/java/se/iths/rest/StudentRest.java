@@ -31,6 +31,13 @@ public class StudentRest {
         }
     }
 
+    @Path("{studentId}/{subjectId}")
+    @PUT
+    public Response addStudentToSubject(@PathParam("studentId") Long studentId,@PathParam("subjectId") Long subjectId){
+        studentService.addSubjectToStudent(studentId,subjectId);
+        return Response.status(201).build();
+    }
+
     @Path("lastname")
     @GET
     public Response getStudentByLastName(@QueryParam("lastName") String lastName) {

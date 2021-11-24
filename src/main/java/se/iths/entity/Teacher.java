@@ -20,9 +20,10 @@ public class Teacher {
     @OneToMany
     private List<Subject> subjects = new ArrayList<>();
 
-    public Teacher(String firstName, String lastName) {
+    public Teacher(String firstName, String lastName, List<Subject> subjects) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.subjects = subjects;
     }
 
     public Teacher() {

@@ -1,4 +1,4 @@
-/*
+
 package se.iths.rest;
 
 import se.iths.entity.Teacher;
@@ -36,4 +36,3 @@ public class TeacherRest {
 }
 
 
- */
