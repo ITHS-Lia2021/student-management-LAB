@@ -6,7 +6,7 @@ Setup Payara correctly and make sure that the .war artifact builds.
 Use Insomnia or Postman to try out both the different endpoints and the http responses!
 
 
-END-POINTS 
+END-POINTS-STUDENTS
 
       GET-ALL STUDENTS    - localhost:8080/student-management-system/api/v1/students
 
@@ -25,5 +25,22 @@ END-POINTS
       PATCH-UPDATE-STUDENT-BY-ID - localhost:8080/student-management-system/api/v1/students/updatelastname/{id}
       (Uses @PathParam("id) and @QueryParam("lastName") to
       find students with the corresponding id and lastname)
+     
+END-POINT-TEACHERS
 
+      Get-ALL TEACHERS - localhost:8080/student-management-system/api/v1/teachers
+      
+      GET-TEACHER-BY-ID - localhost:8080/student-management-system/api/v1/teachers/{id}
+      (Uses @PathParam("id") to find ID)
+      
+      CREATE-TEACHER - localhost:8080/student-management-system/api/v1/teachers
+      
+      ADD-TEACHER-TO-SUBJECT - localhost:8080/student-management-system/api/v1/teachers/{teacherId}/{subjectId}
 
+END-POINT-SUBJECTS
+
+      GET-ALL-SUBJECTS - localhost:8080/student-management-system/api/v1/subjects
+      
+      CREATE-SUBJECT - localhost:8080/student-management-system/api/v1/subjects
+      
+      ADD-STUDENT-TO-SUBJECT - localhost:8080/student-management-system/api/v1/subjects/{studentId}/{subjectId}
