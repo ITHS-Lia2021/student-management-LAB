@@ -25,5 +25,16 @@ public class SubjectService {
 
     }
 
+    public Subject findSubjectById(Long id) {
+        return entityManager.find(Subject.class, id);
+    }
+
+    public void addSubjectToStudent(Long studentId, Long subjectId){
+        Student foundStudent = entityManager.find(Student.class,studentId);
+        Subject foundSubject = entityManager.find(Subject.class, subjectId);
+
+        foundStudent.addSubject(foundSubject);
+    }
+
 
 }

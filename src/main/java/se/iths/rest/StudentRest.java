@@ -3,7 +3,6 @@ package se.iths.rest;
 
 import se.iths.entity.Student;
 import se.iths.service.StudentService;
-
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -29,13 +28,6 @@ public class StudentRest {
             Student studentResult = studentService.createStudent(student);
             return Response.status(201).entity(studentResult).build();
         }
-    }
-
-    @Path("{studentId}/{subjectId}")
-    @PUT
-    public Response addStudentToSubject(@PathParam("studentId") Long studentId,@PathParam("subjectId") Long subjectId){
-        studentService.addSubjectToStudent(studentId,subjectId);
-        return Response.status(201).build();
     }
 
     @Path("lastname")

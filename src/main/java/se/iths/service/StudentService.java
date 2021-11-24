@@ -21,13 +21,6 @@ public class StudentService {
         return student;
     }
 
-    public void addSubjectToStudent(Long studentId, Long subjectId){
-        Student foundStudent = entityManager.find(Student.class,studentId);
-        Subject foundSubject = entityManager.find(Subject.class, subjectId);
-
-        foundStudent.addSubject(foundSubject);
-    }
-
     public Student updateStudent (Student student){
         entityManager.merge(student);
         return student;

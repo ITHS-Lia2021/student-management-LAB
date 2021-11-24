@@ -1,6 +1,7 @@
 package se.iths.rest;
 
 import se.iths.entity.Subject;
+import se.iths.service.StudentService;
 import se.iths.service.SubjectService;
 
 import javax.inject.Inject;
@@ -16,6 +17,8 @@ public class SubjectRest {
 
     @Inject
     SubjectService subjectService;
+    @Inject
+    StudentService studentService;
 
     @Path("")
     @GET
@@ -31,8 +34,26 @@ public class SubjectRest {
     @Path("")
     @POST
     public Response createSubject(Subject subject){
-        Subject createdSubject = subjectService.createSubject(subject);
-        return Response.ok(createdSubject).build();
+        if(subject.getName().isEmpty()) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity("Message: No name given").type(MediaType.APPLICATION_JSON_TYPE).build());
+        } else {
+            Subject subjectResult = subjectService.createSubject(subject);
+            return Response.status(201).entity(subjectResult).build();
+        }
+    }
+
+    @Path("{studentId}/{subjectId}")
+    @PUT
+    public Response addStudentToSubject(@PathParam("studentId") Long studentId,@PathParam("subjectId") Long subjectId){
+        if(subjectService.findSubjectById(subjectId) == null || studentService.findStudentById(studentId) == null) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("ID not found!").type(MediaType.APPLICATION_JSON_TYPE).build());
+        } else {
+            subjectService.addSubjectToStudent(studentId, subjectId);
+            return Response.status(201).build();
+        }
+
     }
 
 }

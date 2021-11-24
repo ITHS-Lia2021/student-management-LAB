@@ -1,5 +1,6 @@
 package se.iths.service;
 
+import se.iths.entity.Student;
 import se.iths.entity.Subject;
 import se.iths.entity.Teacher;
 
@@ -27,6 +28,13 @@ public class TeacherService {
     public List<Teacher> findAllTeachers() {
         return entityManager.createQuery("SELECT t FROM Teacher t", Teacher.class)
                 .getResultList();
+    }
+
+    public void addTeacherToSubject(Long teacherId, Long subjectId) {
+        Teacher foundTeacher = entityManager.find(Teacher.class, teacherId);
+        Subject foundSubject = entityManager.find(Subject.class, subjectId);
+
+        foundTeacher.addSubject(foundSubject);
     }
 }
 
