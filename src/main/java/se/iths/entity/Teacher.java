@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Student {
-
+public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -16,14 +15,18 @@ public class Student {
     private String firstName;
     @NotEmpty
     private String lastName;
-    @NotEmpty
-    private String email;
-    private String phoneNumber;
 
-    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
+    @OneToMany
     private List<Subject> subjects = new ArrayList<>();
 
-    public Student() {}
+    public Teacher(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Teacher() {
+
+    }
 
     public Long getId() {
         return id;
@@ -49,19 +52,11 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public List<Subject> getSubjects() {
+        return subjects;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 }
