@@ -1,5 +1,6 @@
 package se.iths.entity;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class Student {
 
     public Student() {}
 
+    @JsonbTransient
     public List<Subject> getSubjects() {
         return subjects;
     }

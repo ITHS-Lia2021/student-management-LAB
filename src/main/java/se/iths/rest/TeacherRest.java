@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("teachers")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -30,6 +31,13 @@ public class TeacherRest {
         Teacher foundTeacher = teacherService.findTeacherById(id);
         return Response.ok(foundTeacher).build();
 
+    }
+
+    @Path("")
+    @GET
+    public Response getAllTeachers() {
+        List<Teacher> foundTeachers = teacherService.findAllTeachers();
+        return Response.status(200).entity(foundTeachers).build();
     }
 
 

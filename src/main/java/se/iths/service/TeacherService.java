@@ -6,6 +6,7 @@ import se.iths.entity.Teacher;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 public class TeacherService {
@@ -21,7 +22,11 @@ public class TeacherService {
     public Teacher createTeacher(Teacher teacher) {
         entityManager.persist(teacher);
         return teacher;
+    }
 
+    public List<Teacher> findAllTeachers() {
+        return entityManager.createQuery("SELECT t FROM Teacher t", Teacher.class)
+                .getResultList();
     }
 }
 

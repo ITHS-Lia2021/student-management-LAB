@@ -1,6 +1,5 @@
 package se.iths.rest;
 
-import se.iths.entity.Student;
 import se.iths.entity.Subject;
 import se.iths.service.SubjectService;
 
@@ -21,11 +20,11 @@ public class SubjectRest {
     @Path("")
     @GET
     public Response getAllSubjects(){
-        if(subjectService.getAllSubjects().isEmpty()) {
+        if(subjectService.findAllSubjects().isEmpty()) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
                     .entity("COULD NOT FIND STUDENTS").type(MediaType.APPLICATION_JSON_TYPE).build());
         }
-        List<Subject> foundSubjects = subjectService.getAllSubjects();
+        List<Subject> foundSubjects = subjectService.findAllSubjects();
         return Response.status(302).entity(foundSubjects).build();
     }
 
