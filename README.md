@@ -44,3 +44,6 @@ END-POINT-SUBJECTS
       CREATE-SUBJECT - localhost:8080/student-management-system/api/v1/subjects
       
       ADD-STUDENT-TO-SUBJECT - localhost:8080/student-management-system/api/v1/subjects/{studentId}/{subjectId}
+
+Both me and KabbeJ have done everything together, but we've made some commits from both ends.
+The commits shows if it's me or Kabbe that has been sharing the screen in all the steps of the project!
