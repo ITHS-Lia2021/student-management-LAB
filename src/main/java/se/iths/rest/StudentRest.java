@@ -2,6 +2,7 @@ package se.iths.rest;
 
 
 import se.iths.entity.Student;
+import se.iths.exception.EntityNotFoundException;
 import se.iths.service.StudentService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -21,8 +22,7 @@ public class StudentRest {
     @POST
     public Response createStudent(Student student) {
         if (student.getFirstName().isEmpty() || (student.getLastName().isEmpty()) || (student.getEmail().isEmpty())) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
-                    .entity("message: No name/email Given").type(MediaType.APPLICATION_JSON_TYPE).build());
+             throw new EntityNotFoundException("No name or email given");
         }
         else {
             Student studentResult = studentService.createStudent(student);
@@ -35,8 +35,7 @@ public class StudentRest {
     public Response getStudentByLastName(@QueryParam("lastName") String lastName) {
         List <Student> allStudents = studentService.getStudentsByLastname(lastName);
         if(allStudents.isEmpty()) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                    .entity("Students not found!").type(MediaType.APPLICATION_JSON_TYPE).build());
+            throw new EntityNotFoundException("Student not found");
         } else {
             List<Student> foundStudent = studentService.getStudentsByLastname(lastName);
             return Response.status(302).entity(foundStudent).build();
@@ -48,8 +47,7 @@ public class StudentRest {
     @GET
     public Response getStudent(@PathParam("id") Long id) {
         if(studentService.findStudentById(id) == null) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                    .entity("ID not found!").type(MediaType.APPLICATION_JSON_TYPE).build());
+            throw new EntityNotFoundException("Student ID not found");
         } else {
             Student foundStudent = studentService.findStudentById(id);
             return Response.status(302).entity(foundStudent).build();
@@ -60,8 +58,7 @@ public class StudentRest {
     @GET
     public Response getAllStudents() {
         if(studentService.getAllStudents().isEmpty()) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                    .entity("COULD NOT FIND STUDENTS").type(MediaType.APPLICATION_JSON_TYPE).build());
+            throw new EntityNotFoundException("Students not found");
         }
         List<Student> foundStudents = studentService.getAllStudents();
         return Response.status(302).entity(foundStudents).build();
@@ -72,8 +69,7 @@ public class StudentRest {
     public Response deleteStudent(@PathParam("id") Long id) {
 
         if(studentService.findStudentById(id) == null) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                    .entity("ID not found!").type(MediaType.APPLICATION_JSON_TYPE).build());
+            throw new EntityNotFoundException("Student not found");
         } else {
             studentService.deleteStudent(id);
             return Response.status(Response.Status.ACCEPTED).entity(id+"Student removed succesfully").type(MediaType.APPLICATION_JSON_TYPE).build();
@@ -85,8 +81,7 @@ public class StudentRest {
     @PATCH
     public Response updateLastName(@PathParam("id") Long id, @QueryParam("lastName") String lastName) {
         if(studentService.findStudentById(id) == null) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                    .entity("ID not found!").type(MediaType.APPLICATION_JSON_TYPE).build());
+            throw new EntityNotFoundException("Student not found");
         }
         Student updatedStudent = studentService.updateLastName(id, lastName);
         return Response.status(202).entity(updatedStudent).build();
